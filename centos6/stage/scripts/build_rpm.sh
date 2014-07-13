@@ -43,7 +43,7 @@ make install
 ## Identify the version string. ("x.y.z")
 export VERSION=""$(LANG=C vim --version | grep "^VIM" | sed "s/VIM - Vi IMproved \([0-9]*\.[0-9]*\).*/\1/").$(LANG=C vim --version | grep "^Included patches:" | sed "s/Included patches:.*-\([0-9]*\)/\1/")""
 ## Build a rpm.
-export REQUIRES=gtk2,libSM,libXt,libruby
+export REQUIRES=gtk2,libSM,libXt,ruby-devel
 echo "Vim $VERSION" > description-pak
 checkinstall --type=rpm --pkgname=vim --pkgversion=$VERSION --default --requires=$REQUIRES --autoreqprov=no
 ## Save the full path of the rpm file into a file
