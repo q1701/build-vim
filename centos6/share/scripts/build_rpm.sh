@@ -7,8 +7,15 @@ trap "exit 1" ERR
 # Build a Vim's RPM file (GUI enabled)
 #======================================
 
+# Environments
+export SCRIPT_DIR=$VOLUME_SHARE_CONTAINER/scripts
+export OUT_DIR=$VOLUME_SHARE_CONTAINER
+
+# Update yum packages
+yum -y update
+
 # Install the checkinstall
-yum -y install  $(ls $VOLUME_SHARE_CONTAINER/checkinstall*.rpm | tail -1)
+yum -y install  $(ls $SCRIPT_DIR/checkinstall*.rpm | tail -1)
 # Prepare environment to run the rpm-build.
 export HOME=/root
 mkdir -p $HOME/rpmbuild/SOURCES
@@ -19,9 +26,6 @@ hg clone https://vim.googlecode.com/hg/ vim
 cd $BUILD_TMP/vim
 
 # Build
-## Install dependencies to build
-export BUILD_REQUIRES=gcc,gettext,ncurses-devel,lua,lua-devel,perl-ExtUtils-Embed,ruby,ruby-devel,libX11-devel,libXt-devel,gtk2-devel
-yum -y install ${BUILD_REQUIRES//,/ }
 ## Configure
 ./configure \
   --prefix=/usr/local \
@@ -54,7 +58,7 @@ cd $BUILD_TMP
 
 # Export
 # (Environment "VOLUME_SHARE_CONTAINER" must be specified when 'docker run'.)
-cp -p $RPM_PATH $VOLUME_SHARE_CONTAINER
+cp -p $RPM_PATH $OUT_DIR
 rm -f $RPM_PATH
 
 echo "========================="
