@@ -37,9 +37,9 @@ cd $BUILD_TMP/vim
   --disable-darwin \
   --disable-selinux \
   --with-x \
-  --enable-gui=gnome2 \
   --enable-luainterp \
   --enable-perlinterp \
+  --enable-pythoninterp \
   --enable-rubyinterp \
   --enable-cscope
 ## Make and install
@@ -47,7 +47,7 @@ make install
 ## Identify the version string. ("x.y.z")
 export VERSION=""$(LANG=C vim --version | grep "^VIM" | sed "s/VIM - Vi IMproved \([0-9]*\.[0-9]*\).*/\1/").$(LANG=C vim --version | grep "^Included patches:" | sed "s/Included patches:.*-\([0-9]*\)/\1/")""
 ## Build a rpm.
-export REQUIRES=gtk2,libSM,libXt,ruby-devel
+export REQUIRES=gtk2,libSM,libXt,lua,perl-libs,python-libs,ruby-libs
 echo "Vim $VERSION" > description-pak
 checkinstall --type=rpm --pkgname=vim --pkgversion=$VERSION --default --requires=$REQUIRES --autoreqprov=no
 ## Save the full path of the rpm file into a file
