@@ -47,10 +47,10 @@ cd $BUILD_TMP/vim
   --enable-pythoninterp \
   --enable-rubyinterp \
   --enable-cscope
-## Make and install
-make install
+## Make
+make
 ## Identify the version string. ("x.y.z")
-export VERSION=""$(LANG=C vim --version | grep "^VIM" | sed "s/VIM - Vi IMproved \([0-9]*\.[0-9]*\).*/\1/").$(LANG=C vim --version | grep "^Included patches:" | sed "s/Included patches:.*-\([0-9]*\)/\1/")""
+export VERSION=""$(LANG=C ./src/vim --version | grep "^VIM" | sed "s/VIM - Vi IMproved \([0-9]*\.[0-9]*\).*/\1/").$(LANG=C ./src/vim --version | grep "^Included patches:" | sed "s/Included patches:.*-\([0-9]*\)/\1/")""
 ## Build a rpm.
 export REQUIRES=gtk2,libSM,libXt,lua,perl-libs,python-libs,ruby-libs
 echo "Vim $VERSION" > description-pak
