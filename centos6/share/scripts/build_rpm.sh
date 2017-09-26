@@ -21,8 +21,8 @@ export HOME=/root
 mkdir -p $HOME/rpmbuild/SOURCES
 
 # Download the original version
-yum -y install mercurial
-hg clone https://vim.googlecode.com/hg/ vim
+yum -y install git
+git clone https://github.com/vim/vim.git
 cd $BUILD_TMP/vim
 
 # Build
